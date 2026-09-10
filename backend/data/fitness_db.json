@@ -1,0 +1,189 @@
+{
+  "users": [
+    {
+      "id": "c627cc60-3805-4b5e-960e-498b197064ab",
+      "email": "alex.fitness@example.com",
+      "username": "alexparker",
+      "password_hash": "$2a$10$4tBty4nW.MjKP.Wlx7ukKewChWldgWnTf2dRGLb1/KENbFOrtrwDO",
+      "created_at": "2026-09-08T17:40:37.306Z"
+    },
+    {
+      "id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "email": "alex_1788889340144@example.com",
+      "username": "alex_1788889340144",
+      "password_hash": "$2a$10$lVq1wt1Hv7zKz0U4HmixG.Xh962sTzjZ20zzhErwy../.Itagn.sW",
+      "created_at": "2026-09-08T17:42:20.299Z"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "a4f29a9a-5649-487d-960a-a29c934e0705",
+      "user_id": "c627cc60-3805-4b5e-960e-498b197064ab",
+      "name": "Alex Parker",
+      "username": "alexparker",
+      "age": 28,
+      "gender": "Not specified",
+      "height": 175,
+      "weight": 70,
+      "fitness_level": "Beginner",
+      "activity_level": "Moderate",
+      "fitness_goal": "General Fitness",
+      "workout_preference": {
+        "location": "Home",
+        "availableTime": 30,
+        "daysPerWeek": 3,
+        "preferredType": "Full Body",
+        "equipment": [
+          "Dumbbells",
+          "Mat"
+        ]
+      },
+      "food_preference": "Non-Vegetarian",
+      "allergies": [],
+      "created_at": "2026-09-08T17:40:37.306Z",
+      "updated_at": "2026-09-08T17:40:37.306Z"
+    },
+    {
+      "id": "7c04b059-e3c8-4a45-90f0-4b745bf420e6",
+      "user_id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "name": "Alex Parker",
+      "username": "alex_1788889340144",
+      "age": 28,
+      "gender": "Not specified",
+      "height": 175,
+      "weight": 70,
+      "fitness_level": "Beginner",
+      "activity_level": "Moderate",
+      "fitness_goal": "General Fitness",
+      "workout_preference": {
+        "location": "Home",
+        "availableTime": 30,
+        "daysPerWeek": 3,
+        "preferredType": "Full Body",
+        "equipment": [
+          "Dumbbells",
+          "Mat"
+        ]
+      },
+      "food_preference": "Non-Vegetarian",
+      "allergies": [],
+      "created_at": "2026-09-08T17:42:20.299Z",
+      "updated_at": "2026-09-08T17:42:20.449Z"
+    }
+  ],
+  "workouts": [
+    {
+      "id": "9752c4b1-ec93-4044-8429-0a834d51dbf2",
+      "user_id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "workout_name": "Morning Cardio & Core",
+      "date": "2026-09-08",
+      "duration": 1800,
+      "completed": true,
+      "created_at": "2026-09-08T17:42:20.464Z"
+    },
+    {
+      "id": "offline-test-uuid-001",
+      "user_id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "workout_name": "Offline Park Run",
+      "date": "2026-09-08",
+      "duration": 1200,
+      "completed": true,
+      "created_at": "2026-09-08T17:42:20.471Z"
+    }
+  ],
+  "workout_exercises": [
+    {
+      "id": "05028821-bcf5-4391-8026-05f568fb9a11",
+      "workout_id": "9752c4b1-ec93-4044-8429-0a834d51dbf2",
+      "exercise_name": "Squats",
+      "sets": 3,
+      "reps": 15,
+      "weight": 0,
+      "duration": 0,
+      "completed": true
+    },
+    {
+      "id": "200647df-2302-4193-820f-c2b818a65dbc",
+      "workout_id": "9752c4b1-ec93-4044-8429-0a834d51dbf2",
+      "exercise_name": "Push-ups",
+      "sets": 3,
+      "reps": 12,
+      "weight": 0,
+      "duration": 0,
+      "completed": true
+    },
+    {
+      "id": "eb1377e6-a74c-4225-ae14-5fa0db8f7b1e",
+      "workout_id": "offline-test-uuid-001",
+      "exercise_name": "Running",
+      "sets": 1,
+      "reps": 1,
+      "weight": 0,
+      "duration": 0,
+      "completed": true
+    }
+  ],
+  "nutrition": [
+    {
+      "id": "cbe12af9-a026-4538-895a-2f43a8869bd9",
+      "user_id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "date": "2026-09-08",
+      "meal_type": "Breakfast",
+      "meal_name": "Scrambled Eggs (3) with Whole Grain Toast & Avocado",
+      "calories": 581,
+      "protein": 36,
+      "carbohydrates": 65,
+      "fats": 19,
+      "completed": false
+    },
+    {
+      "id": "c5078e39-e8b5-4482-b729-3f5cc42eeff7",
+      "user_id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "date": "2026-09-08",
+      "meal_type": "Lunch",
+      "meal_name": "Grilled Chicken Breast with Brown Rice and Steamed Broccoli",
+      "calories": 813,
+      "protein": 71,
+      "carbohydrates": 81,
+      "fats": 23,
+      "completed": false
+    },
+    {
+      "id": "856609c2-c986-40b2-b2fe-b2d4b503d1c3",
+      "user_id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "date": "2026-09-08",
+      "meal_type": "Dinner",
+      "meal_name": "Baked Salmon Fillet with Quinoa and Roasted Asparagus",
+      "calories": 581,
+      "protein": 51,
+      "carbohydrates": 51,
+      "fats": 19,
+      "completed": false
+    },
+    {
+      "id": "a73eb7a8-6d85-4c03-aded-291b8baa36a6",
+      "user_id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "date": "2026-09-08",
+      "meal_type": "Snacks",
+      "meal_name": "Greek Yogurt with Mixed Berries and Almonds",
+      "calories": 348,
+      "protein": 22,
+      "carbohydrates": 39,
+      "fats": 12,
+      "completed": false
+    }
+  ],
+  "progress": [
+    {
+      "id": "0abf72a7-7491-4327-8d4c-5b2303ef5e99",
+      "user_id": "a40cefb2-b4da-4cf8-b29d-cec72e1265d7",
+      "date": "2026-09-08",
+      "weight": 70,
+      "steps": 4000,
+      "calories": 225,
+      "workout_duration": 30,
+      "created_at": "2026-09-08T17:42:20.464Z"
+    }
+  ],
+  "password_resets": []
+}
