@@ -4,7 +4,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET || "ai-fitness-secret-key-super-secure-2026";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is required. Set it in the backend environment before starting the server.");
+}
 
 export interface AuthRequest extends Request {
   user?: {
@@ -20,7 +24,7 @@ export const authenticateToken = (
   next: NextFunction
 ): void => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const token = authHeader?.startsWith("Bearer ") ? authHeader.slice(7).trim() : undefined;
 
   if (!token) {
     res.status(401).json({
