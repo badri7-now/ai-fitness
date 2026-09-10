@@ -1,24 +1,33 @@
 ﻿import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
-// In Expo Android emulator, localhost is 10.0.2.2. In Web or iOS simulator, localhost is 127.0.0.1.
-export const DEFAULT_API_URL = Platform.select({
-  android: "http://10.0.2.2:5000/api",
-  default: "http://localhost:5000/api"
-});
+// Use EXPO_PUBLIC_API_URL for deployed builds. Keep local defaults for development.
+const ENV_API_URL =
+  typeof process !== "undefined" && process.env?.EXPO_PUBLIC_API_URL
+    ? process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, "")
+    : undefined;
+
+export const DEFAULT_API_URL =
+  ENV_API_URL ||
+  Platform.select({
+    android: "http://10.0.2.2:5000/api",
+    default: "http://localhost:5000/api"
+  }) ||
+  "http://localhost:5000/api";
 
 class ApiClient {
   private baseUrl: string = DEFAULT_API_URL;
 
   public async setBaseUrl(url: string) {
-    this.baseUrl = url;
-    await AsyncStorage.setItem("@api_base_url", url);
+    const normalizedUrl = url.trim().replace(/\/$/, "");
+    this.baseUrl = normalizedUrl;
+    await AsyncStorage.setItem("@api_base_url", normalizedUrl);
   }
 
   public async getBaseUrl(): Promise<string> {
     const saved = await AsyncStorage.getItem("@api_base_url");
     if (saved) {
-      this.baseUrl = saved;
+      this.baseUrl = saved.replace(/\/$/, "");
     }
     return this.baseUrl;
   }
@@ -33,22 +42,45 @@ class ApiClient {
     options: RequestInit = {}
   ): Promise<{ success: boolean; data?: T; message?: string; [key: string]: any }> {
     try {
-      const url = `${this.baseUrl}${endpoint}`;
+      const baseUrl = await this.getBaseUrl();
+      const normalizedEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+      const url = `${baseUrl}${normalizedEndpoint}`;
       const authHeaders = await this.getAuthHeader();
 
       const response = await fetch(url, {
         ...options,
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
           ...authHeaders,
           ...(options.headers || {})
         }
       });
 
-      const json = await response.json();
+      const contentType = response.headers.get("content-type") || "";
+      const json = contentType.includes("application/json")
+        ? await response.json()
+        : null;
+
+      if (!response.ok) {
+        return {
+          success: false,
+          message:
+            json?.message ||
+            `Request failed (${response.status}). Please try again.`,
+          status: response.status
+        };
+      }
+
+      if (!json || typeof json !== "object") {
+        return {
+          success: false,
+          message: "Server returned an invalid response."
+        };
+      }
+
       return json;
-    } catch (error: any) {
-      // Network error or server offline
+    } catch (error) {
       return {
         success: false,
         message: "Unable to connect to server. Check your network or server status.",
@@ -71,7 +103,7 @@ class ApiClient {
   public put<T = any>(endpoint: string, body?: any) {
     return this.request<T>(endpoint, {
       method: "PUT",
-      body: body ? JSON.stringify(body) : undefined
+      body: body === undefined ? undefined : JSON.stringify(body)
     });
   }
 }
